@@ -1,2 +1,3 @@
-# rusty-dotpict
-dot-pict on brower by rust
+# rusty-pixels
+
+pixel art on brower by rust

@@ -1,3 +1,12 @@
+[build]
+target = "index.html"
+dist = "dist"
+
+[[hooks]]
+stage = "build"
+command = "sh"
+command_arguments = ["-c", "npx tailwindcss -i src/tailwind.css -o $TRUNK_STAGING_DIR/tailwind_out.css"]
+
 [serve]
 # to serve on LAN
 address = "127.0.0.1"
