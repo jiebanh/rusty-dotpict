@@ -2,6 +2,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::Route;
+use crate::components::buttons;
 
 #[derive(Clone, Routable, PartialEq)]
 pub enum PaintRoute {
@@ -22,12 +23,18 @@ pub fn switch_paint(route: PaintRoute) -> Html {
 
 #[function_component]
 fn Paint() -> Html {
-    let style_string = "color: blue";
+    // let style_string = "text-blue-500 center";
+    let class = "text-blue-800 justify-center items-center";
     // let onclick = Callback::from(|_| style_string = "color: red");
+
+    let navigator_tohome = use_navigator().unwrap();
+    let onclick_tohome = Callback::from(move |_| navigator_tohome.push(&Route::Home));
+
     html! {
         <div>
-            <h1 style={style_string}>{"This is paint page"}</h1>
+            <h1 {class}>{"This is paint page"}</h1>
             // <button {onclick}>{ "redder" }</button>
+            <buttons::Basic text="home" onclick={onclick_tohome} />
             <Navbar />
             <Container />
         </div>
@@ -36,8 +43,12 @@ fn Paint() -> Html {
 
 #[function_component]
 fn Navbar() -> Html {
+    // there is concat!("a", "b") macro also
+    let class = "bg-black-navbar w-[800px] rounded-[3px] \
+        p-1 mb-1 flex justify-center items-center";
+
     html! {
-        <div class="navbar">
+        <div {class}>
             <button class="btn">{ "Reset" }</button>
             <input type="color" value="#00eeff" class="color" />
             <input type="number" value="30" class="size" />
@@ -47,8 +58,10 @@ fn Navbar() -> Html {
 
 #[function_component]
 fn Container() -> Html {
+    let class = "bg-black-navbar w-[800px] rounded-[3px] \
+        h-[800px] grid grid-cols-4 grid-rows-4 gap-[3px] p-3";
     html! {
-        <div class="container">
+        <div {class}>
         </div>
     }
 }

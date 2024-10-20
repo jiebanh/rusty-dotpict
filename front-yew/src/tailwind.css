@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* define base styles here */
+/* overwrite them in each component for exceptional styles */
+
+@layer base {
+
+  /* font sample */
+  /* @font-face { */
+  /*   font-family: Proxima Nova; */
+  /*   font-weight: 400; */
+  /*   src: url(/fonts/proxima-nova/400-regular.woff) format("woff"); */
+  /* } */
+
+  * {
+    @apply m-0;
+    @apply p-0;
+    @apply box-border;
+  }
+  html, body {
+    @apply h-full;
+  }
+  body {
+    @apply bg-blue-100;
+    @apply flex;
+    @apply justify-center;
+    @apply items-center;
+    @apply flex-col;
+  }
+}
+ 
+@layer components {
+  .pixel {
+    @apply bg-[#3d3d3d];
+    @apply rounded-[2px];
+  }
+}

@@ -43,6 +43,10 @@ fn home() -> Html {
 fn pages() -> Html {
     let navigator_paint = use_navigator().unwrap();
     let onclick_paint = Callback::from(move |_| navigator_paint.push(&Route::PaintRoot));
+    // let props = buttons::Props{
+    //     text: String::from("paint"),
+    //     onclick: onclick_paint,
+    // };
 
     let navigator_settings = use_navigator().unwrap();
     let onclick_settings = Callback::from(move |_| navigator_settings.push(&Route::SettingsRoot));
@@ -53,8 +57,12 @@ fn pages() -> Html {
     // if function name is 'onclick', onclick={onclick} can be abbreviated to {onclick}
     html! {
         <div>
-            <button class={buttons::Style::Basic.as_str()} onclick={onclick_paint}>{ "paint" }</button>
-            <button class={buttons::Style::Color1.as_str()} onclick={onclick_settings}>{ "settings" }</button>
+
+            // <button class={buttons::Style::Basic.as_str()} onclick={onclick_paint}>{ "paint" }</button>
+            // <button class={buttons::Style::Color1.as_str()} onclick={onclick_settings}>{ "settings" }</button>
+
+            <buttons::Basic text="paint" onclick={onclick_paint} />
+            <buttons::Sample text="settings" onclick={onclick_settings} />
             <button onclick={onclick_tailwind}>{ "tailwind" }</button>
         </div>
     }
