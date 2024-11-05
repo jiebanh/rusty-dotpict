@@ -106,6 +106,7 @@ dependencies = [
 name = "front-yew"
 version = "0.1.0"
 dependencies = [
+ "web-sys",
  "yew",
  "yew-router",
 ]

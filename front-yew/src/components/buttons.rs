@@ -1,4 +1,3 @@
-// TODO refine: integrate into style.rs or make button component functions
 use yew::prelude::*;
 
 // pub enum Style {
@@ -16,15 +15,21 @@ use yew::prelude::*;
 // }
 
 #[derive(Properties, PartialEq)]
-pub struct ButtonProps {
+pub struct Props {
     pub text: String,
     pub onclick: Callback<MouseEvent>,
-    // pub onsignal: Callback<()>,
+
+    // #[prop_or_default]
+    // pub is_loading: bool,
+    // #[prop_or("Bob".to_string())]
+    // pub prop_a: String,
+    // #[prop_or_else(some_function)]
+    // pub name: String,
 }
 
 #[function_component(Sample)]
-pub fn sample(props: &ButtonProps) -> Html {
-    let ButtonProps { text, onclick } = props;
+pub fn sample(props: &Props) -> Html {
+    let Props { text, onclick } = props;
     let class = "flex max-w-sm w-full bg-gradient-to-r \
         from-indigo-500 via-pink-500 to-yellow-500 \
         hover:from-indigo-600 hover:via-pink-600 hover:to-red-600 \
@@ -36,7 +41,7 @@ pub fn sample(props: &ButtonProps) -> Html {
 }
 
 #[function_component(Basic)]
-pub fn basic(props: &ButtonProps) -> Html {
+pub fn basic(props: &Props) -> Html {
     let class = "p-4 rounded-lg bg-blue-400 hover:bg-blue-500 \
         font-bold text-white shadow-lg shadow-blue-200 \
         transition ease-in-out duration-200 translate-10";

@@ -3,6 +3,9 @@ use yew_router::prelude::*;
 
 use crate::Route;
 use crate::components::buttons;
+use crate::components::canvas;
+
+// routing
 
 #[derive(Clone, Routable, PartialEq)]
 pub enum PaintRoute {
@@ -13,7 +16,6 @@ pub enum PaintRoute {
     NotFound,
 }
 
-// routing
 pub fn switch_paint(route: PaintRoute) -> Html {
     match route {
         PaintRoute::Paint => html! {<Paint/>},
@@ -21,10 +23,12 @@ pub fn switch_paint(route: PaintRoute) -> Html {
     }
 }
 
+// main component
+
 #[function_component]
 fn Paint() -> Html {
     // let style_string = "text-blue-500 center";
-    let class = "text-blue-800 justify-center items-center";
+    let class = "text-blue-800 justify-center items-center flex";
     // let onclick = Callback::from(|_| style_string = "color: red");
 
     let navigator_tohome = use_navigator().unwrap();
@@ -34,12 +38,15 @@ fn Paint() -> Html {
         <div>
             <h1 {class}>{"This is paint page"}</h1>
             // <button {onclick}>{ "redder" }</button>
-            <buttons::Basic text="home" onclick={onclick_tohome} />
+            <buttons::Sample text="home" onclick={onclick_tohome} />
             <Navbar />
-            <Container />
+            <canvas::CanvasDiv />
+            // <Container />
         </div>
     }
 }
+
+// sub components
 
 #[function_component]
 fn Navbar() -> Html {
