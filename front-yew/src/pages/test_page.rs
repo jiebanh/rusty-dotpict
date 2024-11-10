@@ -3,6 +3,7 @@ use yew_router::prelude::*;
 
 use crate::Route;
 use crate::components::counter::Counter;
+use crate::components::buttons;
 
 #[derive(Clone, Routable, PartialEq)]
 pub enum SettingsRoute {
@@ -45,10 +46,24 @@ fn secure() -> Html {
     // using short form of onclick={onclick}
     let onclick = Callback::from(move |_| navigator.push(&Route::Home));
 
+    // sample of passing state variable as props
+    let sample_text = use_state(|| "a");
+    let onclick_sample = {
+        let counter = sample_text.clone();
+        move |_| {
+            counter.set("b");
+            web_sys::console::log_1(&format!("{}", *counter).into());
+        }
+    };
+
     html! {
         <div>
-            <h1>{ "Secure" }</h1>
-            <button {onclick}>{ "Go Home" }</button>
+            <div>
+                <button {onclick}>{ "Go Home" }</button>
+            </div>
+            <div>
+                <buttons::Sample text={*sample_text} onclick={onclick_sample} />
+            </div>
         </div>
     }
 }

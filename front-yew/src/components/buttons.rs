@@ -50,3 +50,36 @@ pub fn basic(props: &Props) -> Html {
         <button {class} onclick={&props.onclick}>{ &props.text }</button>
     }
 }
+
+// use state outside could be better
+
+// #[function_component(WithState)]
+// pub fn basic() -> Html {
+//     let counter = use_state(|| 0);
+//     let onclick = {
+//         let counter = counter.clone();
+//         move|_| {
+//             let value = *counter + 1;
+//             counter.set(value);
+//         }
+//     };
+
+//     let class = "p-4 rounded-lg bg-blue-400 hover:bg-blue-500 \
+//         font-bold text-white shadow-lg shadow-blue-200 \
+//         transition ease-in-out duration-200 translate-10";
+
+//     html! {
+//         <button {class} {onclick}>{ *counter }</button>
+//     }
+// }
+
+// #[function_component(WithProp)]
+// pub fn basic(props: &Props) -> Html {
+//     let class = "p-4 rounded-lg bg-blue-400 hover:bg-blue-500 \
+//         font-bold text-white shadow-lg shadow-blue-200 \
+//         transition ease-in-out duration-200 translate-10";
+
+//     html! {
+//         <button {class} onclick={&props.onclick}>{ &props.text }</button>
+//     }
+// }
