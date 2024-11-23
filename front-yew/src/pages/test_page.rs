@@ -50,10 +50,10 @@ fn secure() -> Html {
     let sample_text = use_state(|| "a");
     let onclick_sample = {
         let counter = sample_text.clone();
-        move |_| {
+        Callback::from(move |_| {
             counter.set("b");
             web_sys::console::log_1(&format!("{}", *counter).into());
-        }
+        })
     };
 
     html! {

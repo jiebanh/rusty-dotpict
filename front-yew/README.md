@@ -8,6 +8,8 @@
 trunk serve
 ```
 
+`cargo build` could show deteiled error message, on the other hand `trunk serve` may raise runtime error
+
 ### notes
 
 `function_component` macro defines types, also.
