@@ -1,8 +1,7 @@
 use std::f64;
 use yew::prelude::*;
 use web_sys::{HtmlElement, HtmlCanvasElement, CanvasRenderingContext2d};
-// use js_sys;
-// use web_sys::wasm_bindgen::JsCast;
+
 use web_sys::wasm_bindgen::prelude::*;
 
 // fn create_default_colors() -> Vec::<String> {
@@ -22,13 +21,6 @@ pub struct Props {
     // pub colors: Vec::<>,
     pub current_color: String,
 }
-
-// TODO check this in MouseEvent
-// #[derive(PartialEq)]
-// enum State {
-//     DOWN,
-//     UP,
-// }
 
 // #[function_component(CanvasDiv)]
 // pub fn canvas_div() -> Html {

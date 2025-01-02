@@ -30,89 +30,73 @@ pub fn switch_paint(route: PaintRoute) -> Html {
 #[derive(Clone, Debug, PartialEq)]
 struct PaintContext {
     current_color: String,
-    colors: Vec::<String>,
+    current_color_index: usize,
+    color_palette: Vec::<String>,
+    colors: Vec::<Vec::<usize>>,
 }
 
 #[function_component]
 fn Paint() -> Html {
-    // let style_string = "text-blue-500 center";
     let class = "text-blue-800 justify-center items-center flex";
-    // let onclick = Callback::from(|_| style_string = "color: red");
 
-    // let ctx = use_state(|| ColorContext {
-    //     current_color: String::from("#000000"),
-    //     colors: Vec::<String>::new(),
-    // });
-
-    // let colors = use_state(|| vec::<String>);
-    let current_color = use_state(|| String::from("#ff0000"));
-    // let current_color = use_state(|| "#ff0000");
+    // using context (or just pass single state as prop)
+    let ctx = use_state(|| PaintContext {
+        current_color: String::from("#000000"),
+        current_color_index: 0,
+        color_palette: vec![String::from("#000000"); 16],
+        colors: Vec::<Vec::<usize>>::new(),
+    });
 
     let navigator_tohome = use_navigator().unwrap();
     let onclick_tohome = Callback::from(move |_| navigator_tohome.push(&Route::Home));
 
-    // let onchange = {
-    //     let current_color = current_color.clone();
-    //     Callback::from(move | e: Event | {
-    //         let target = e.target().unwrap();
-    //         let current_value = target.unchecked_into::<HtmlInputElement>();
-    //         // temp_value = current_value.value();
-    //         current_color.set(&current_value.value());
-    //     })
-    // };
-
     let oninput = Callback::from({
-        let current_color = current_color.clone();
+        let ctx = ctx.clone();
+
         move |e: InputEvent| {
+            // let PaintContext {current_color_index, color_palette, color
+
             let target: HtmlInputElement = e
                 .target()
                 .unwrap()
                 .dyn_into()
                 .unwrap();
-            current_color.set(target.value());
+            ctx.set(PaintContext {
+                current_color: target.value(),
+                current_color_index: ctx.current_color_index.clone(),
+                color_palette: ctx.color_palette.clone(),
+                colors: ctx.colors.clone(),
+            });
         }
     });
 
     html! {
-        // <ContextProvider<ColorContext> context={(*ctx).clone()}>
-        <div>
-            <h1 {class}>{"This is paint page"}</h1>
-            // <button {onclick}>{ "redder" }</button>
-            <buttons::Sample text="home" onclick={onclick_tohome} />
-            // <Navbar current_color={*current_color} {onchange} />
-            <Navbar current_color={(*current_color).clone()} {oninput} />
-            // <canvas::CanvasDiv />
-            <canvas::Canvas current_color={(*current_color).clone()} />
-        </div>
-        // </ContextProvider<ColorContext>>
+        <ContextProvider<PaintContext> context={(*ctx).clone()}>
+            <div>
+                <h1 {class}>{"This is paint page"}</h1>
+                <buttons::Sample text="home" onclick={onclick_tohome} />
+                <Navbar current_color={(ctx.current_color).clone()} {oninput} />
+                <canvas::Canvas current_color={(ctx.current_color).clone()} />
+            </div>
+        </ContextProvider<PaintContext>>
     }
 }
 
-// TODO write in main component directly, since this is not reused
-// or recieve callback function as prop
 // sub components
 
 #[derive(Properties, PartialEq)]
 struct NavbarProps {
     current_color: String,
-    // onchange: Callback<Event>,
     oninput: Callback<InputEvent>,
 }
 
 #[function_component]
 fn Navbar(props: &NavbarProps) -> Html {
-    // there is concat!("a", "b") macro also
+    // NOTE concat!("a", "b") can be used to break line
     let class = "bg-black-navbar w-[800px] rounded-[3px] \
         p-1 mb-1 flex justify-center items-center";
 
     let NavbarProps{ current_color, oninput } = props;
-    // let onchange = Callback::from(
-    //     move | input_event: Event | {
-    //         let input_event_target = input_event.target().unwrap();
-    //         let current_value = input_event_target.unchecked_into::<HtmlInputElement>();
-    //         current_color = &(current_value.value()).into();
-    //     }
-    // );
 
     html! {
         <div {class}>
